@@ -1,3 +1,5 @@
+# webapp.py
+
 import io
 import os
 from base64 import b64encode
@@ -10,7 +12,11 @@ from transformers import pipeline
 
 from portrait import ALL_DB, collect_tags, summarize
 
-# HTML templates
+# ─── Set your ngrok authtoken here ───────────────────────────────────────────────
+NGROK_AUTH_TOKEN = "2yKdXyfSpUAyYw16vSH39fdbDcC_ucbtZANz6hARPTGJoy9E"
+ngrok.set_auth_token(NGROK_AUTH_TOKEN)
+# ────────────────────────────────────────────────────────────────────────────────
+
 TEMPLATE_FORM = """
 <!doctype html>
 <title>Emotional Portrait</title>
@@ -39,48 +45,47 @@ TEMPLATE_RESULT = """
 <a href="/">Try again</a>
 """
 
-# Initialize Flask app
 app = Flask(__name__)
 
-# Use EleutherAI/gpt-neo-125M for lightweight text generation
+# Use a lightweight open-source model
 generator = pipeline("text-generation", model="EleutherAI/gpt-neo-125M")
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        # Build user profile from form inputs
+        # Build profile from form
         profile = {cat: request.form.getlist(cat) for cat in ALL_DB}
-        # Collect tags and summary
+        # Collect tags & summary
         tags = []
-        for category, items in profile.items():
-            tags.extend(collect_tags(category, items))
+        for cat, items in profile.items():
+            tags.extend(collect_tags(cat, items))
         summary = summarize(tags)
-        # Generate GPT interpretation
+        # GPT interpretation
         interpretation = generator(
             summary + "\nIn a short paragraph, describe this person:",
             max_length=100,
             num_return_sequences=1,
         )[0]["generated_text"]
-        # Create word cloud image and encode as base64
+        # Word cloud → base64
         counter = Counter(tags)
         wc = WordCloud(width=800, height=400, background_color="white")
         wc.generate_from_frequencies(counter)
         img_io = io.BytesIO()
         wc.to_image().save(img_io, format="PNG")
         img_b64 = b64encode(img_io.getvalue()).decode("ascii")
-        # Render result page
+        # Render result
         return render_template_string(
             TEMPLATE_RESULT,
             summary=summary,
             wordcloud=img_b64,
             interpretation=interpretation,
         )
-
-    # GET → show selection form
+    # GET → show form
     return render_template_string(TEMPLATE_FORM, db=ALL_DB)
 
 if __name__ == "__main__":
-    # Expose via ngrok for public URL
+    # Open ngrok tunnel
     public_url = ngrok.connect(5000)
     print(" * ngrok tunnel:", public_url)
+    # Start Flask
     app.run(port=5000)
