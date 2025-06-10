@@ -337,11 +337,6 @@ def main():
         profile = load_profile(args.profile)
     else:
         profile = prompt_profile()
-    all_tags = []
-    for category, items in profile.items():
-        all_tags.extend(collect_tags(category, items))
-    print(summarize(all_tags))
-
 
 if __name__ == "__main__":
     main()
