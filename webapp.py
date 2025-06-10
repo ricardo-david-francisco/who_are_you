@@ -1,4 +1,3 @@
-import io
 from collections import Counter
 
 import gradio as gr
@@ -25,15 +24,13 @@ def generate_portrait(music, movies, painters, architecture, books):
     counter = Counter(tags)
     wc = WordCloud(width=800, height=400, background_color="white")
     wc.generate_from_frequencies(counter)
-    img_io = io.BytesIO()
-    wc.to_image().save(img_io, format="PNG")
-    img_io.seek(0)
+    img = wc.to_image()
     interpretation = generator(
         summary + "\nIn a short paragraph, describe this person:",
         max_length=100,
         num_return_sequences=1,
     )[0]["generated_text"]
-    return summary, img_io, interpretation
+    return summary, img, interpretation
 
 CSS = """
 body{background-color:#111;color:#eee;text-align:center;}
@@ -41,7 +38,8 @@ body{background-color:#111;color:#eee;text-align:center;}
 """
 
 with gr.Blocks(theme=gr.themes.Soft(), css=CSS) as demo:
-    gr.Markdown("# Emotional Portrait")
+    gr.Markdown("# Tell me what you like...I'll tell you who you really are!")
+    gr.Markdown("## Emotional Portrait")
     with gr.Row():
         music = gr.Dropdown(list(ALL_DB["music"].keys()), multiselect=True, label="Music")
         movies = gr.Dropdown(list(ALL_DB["movies"].keys()), multiselect=True, label="Movies")
