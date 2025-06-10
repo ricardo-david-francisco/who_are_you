@@ -4,7 +4,8 @@
 
 ## Quick start
 
-Run the helper script to install requirements and launch the web interface:
+Run the helper script to install requirements and launch the web interface. It
+opens a small dark themed page in Gradio:
 
 ```bash
 ./start.sh
@@ -26,7 +27,10 @@ python portrait.py sample_profile.json  # analyse the example file
 %cd who_are_you
 ```
 
-Then run the remaining cells to install dependencies and launch Gradio. A public link will appear so you can select your favourites and view the portrait.
+Then run the remaining cells to install dependencies and launch Gradio. A public
+link will appear so you can select your favourites and view the portrait. The
+notebook uses `start.sh` which installs packages quietly and launches the app in
+one step.
 
 ## Local web page
 
