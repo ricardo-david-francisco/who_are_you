@@ -10,7 +10,7 @@ Use the helper script to install everything and launch the demo web page:
 ./start.sh
 ```
 
-An ngrok URL will appear in the terminal. Open it, pick 5‑10 entries from each list and you will see a word cloud alongside a short GPT‑generated portrait.
+When the script finishes a public URL will appear in the terminal. Open it, pick 5‑10 entries from each list and you will see a word cloud alongside a short GPT‑generated portrait.
 
 If you prefer the command line you can run the script directly:
 
@@ -28,11 +28,11 @@ python portrait.py sample_profile.json  # analyse the example file
 %cd who_are_you
 ```
 
-After that simply run the remaining cells (they install the dependencies and start the server) and an ngrok URL will appear. Open it to select your favourites and view the generated portrait.
+After that run the remaining cells. They install the dependencies and start the server. Gradio will print a public link which you can open to select your favourites and view the generated portrait.
 
 ## Local web page
 
-`webapp.py` starts a minimal Flask app with multi‑select fields. It generates the same summary, word cloud and GPT interpretation as the command‑line version. Invoke it with `python webapp.py` if you already installed the requirements.
+`webapp.py` starts a small Gradio interface with multi‑select lists. It generates the same summary, word cloud and GPT interpretation as the command‑line version. Invoke it with `python webapp.py` if you already installed the requirements. Gradio will display a link you can share.
 
 ## Customising
 

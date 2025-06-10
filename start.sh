@@ -1,3 +1,3 @@
 #!/bin/bash
-pip install -q flask pyngrok wordcloud transformers
+pip install -q gradio wordcloud transformers
 python webapp.py
