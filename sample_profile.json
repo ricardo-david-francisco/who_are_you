@@ -1,0 +1,35 @@
+{
+    "music": [
+        "Beethoven",
+        "Ennio Morricone",
+        "Bob Marley",
+        "Nina Simone",
+        "Massive Attack",
+        "The Doors",
+        "Paco de Lucía",
+        "Pink Floyd",
+        "Radiohead",
+        "Miles Davis"
+    ],
+    "movies": [
+        "The Godfather",
+        "Blade Runner",
+        "Spirited Away",
+        "Pulp Fiction"
+    ],
+    "painters": [
+        "Picasso",
+        "Van Gogh",
+        "Michelangelo"
+    ],
+    "architecture": [
+        "Sagrada Familia",
+        "Fallingwater",
+        "Sydney Opera House"
+    ],
+    "books": [
+        "1984",
+        "The Lord of the Rings",
+        "The Alchemist"
+    ]
+}
