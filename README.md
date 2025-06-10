@@ -1,6 +1,6 @@
 # who_are_you
 
-"Tell me what you like, I tell you who you are." This tool builds a personal profile from your favourite music, movies, painters, architecture and books. Each item has descriptive tags in a small built‑in database. The tags are tallied to reveal dominant traits and a lightweight GPT‑Neo model interprets the results in plain language.
+"Tell me what you like...I'll tell you who you really are!" This tool builds a personal profile from your favourite music, movies, painters, architecture and books. Each item has descriptive tags in a small built‑in database. The tags are tallied to reveal dominant traits and a lightweight GPT‑Neo model interprets the results in plain language.
 
 ## Quick start
 
