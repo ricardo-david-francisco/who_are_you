@@ -306,19 +306,37 @@ def summarize(tags):
     return summary + "\n\nTag counts: " + traits
 
 
+def prompt_profile():
+    """Interactively collect favorites for each category."""
+    profile = {}
+    for category, db in ALL_DB.items():
+        print(f"\nSelect 5-10 items from {category.title()}. Enter numbers separated by commas:")
+        items = list(db.keys())
+        for i, name in enumerate(items, 1):
+            print(f"{i}. {name}")
+        raw = input("Your choices: ")
+        selected = []
+        for part in raw.split(','):
+            part = part.strip()
+            if part.isdigit():
+                idx = int(part) - 1
+                if 0 <= idx < len(items):
+                    selected.append(items[idx])
+        profile[category] = selected[:10]
+    return profile
+
+
 def main():
     import argparse
 
     parser = argparse.ArgumentParser(description="Create an emotional portrait based on favorites")
-    parser.add_argument("profile", help="Path to JSON file containing your selections")
+    parser.add_argument("profile", nargs="?", help="Optional path to JSON file containing your selections")
     args = parser.parse_args()
 
-    profile = load_profile(args.profile)
-    all_tags = []
-    for category, items in profile.items():
-        all_tags.extend(collect_tags(category, items))
-    print(summarize(all_tags))
-
+    if args.profile:
+        profile = load_profile(args.profile)
+    else:
+        profile = prompt_profile()
 
 if __name__ == "__main__":
     main()
