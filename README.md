@@ -21,7 +21,14 @@ python portrait.py sample_profile.json  # analyse the example file
 
 ## Google Colab
 
-`colab_demo.ipynb` contains the same setup for Colab. Run all cells to receive an ngrok link and use the web form remotely.
+`colab_demo.ipynb` shows how to run everything in Colab. Because notebooks loaded directly from GitHub do not include the rest of the repository, the first cell clones the repo and moves into it:
+
+```python
+!git clone https://github.com/<your-username>/who_are_you.git
+%cd who_are_you
+```
+
+After that simply run the remaining cells (they install the dependencies and start the server) and an ngrok URL will appear. Open it to select your favourites and view the generated portrait.
 
 ## Local web page
 
